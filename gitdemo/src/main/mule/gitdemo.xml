@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="fc9b3dcb-630f-4dd3-b39d-793d58ab14ae" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="250baa93-2fc8-42fe-bc63-b8d4a0a5b9d4" >
+		<file:connection workingDir="C:\Users\1030458\Desktop" />
+	</file:config>
 	<flow name="gitdemoFlow" doc:id="a1ea4cb1-7669-4c21-9efa-8a490f17a2af" >
 		<http:listener doc:name="Listener" doc:id="97043491-fd98-4be5-9fb5-62c76a71a08f" config-ref="HTTP_Listener_config" path="/test"/>
 		<logger level="INFO" doc:name="Start" doc:id="371ff261-4202-4ac4-be40-cdd976afed98" message="Flow Execuion Started"/>
 		<set-payload value="Hello" doc:name="Set Payload" doc:id="0703faf2-fcce-44f0-9861-3fea2c7f4c10" />
+		<file:read doc:name="Read" doc:id="c65c4115-eeaa-47d0-8967-1f40b33d7480" config-ref="File_Config" path="C:\Users\1030458\Desktop\Newfile.txt"/>
 		<logger level="INFO" doc:name="End" doc:id="f193bdce-1883-48ed-ac52-84a5b5e19505" message="Flow Execuion Ended"/>
 	</flow>
 </mule>
